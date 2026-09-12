@@ -1,0 +1,80 @@
+using System;
+
+abstract class Animal
+{
+    public string Name {get;}
+    private int _age;
+    public int Age
+    {
+        get{return _age;}
+        set
+        {
+            if(value < 0 || value > 100)
+            {
+                Console.WriteLine("Ошибка");
+                return;
+            }
+            else
+            {
+                _age = value;
+            }
+        }
+    }
+    public Animal(string name,int age)
+    {
+        Name = name;
+        Age = age;
+    }
+    public abstract string Speak();
+    public abstract string Move();
+    public void Print()
+    {
+        Console.WriteLine($"Имя: {Name}, Возраст: {Age}, Звук: {Speak()}, Движение: {Move()}");
+    }
+}
+class Lion : Animal
+{
+    public Lion(string name,int age) : base(name,age)
+    {}
+    public override string Speak() => "ррр";
+    public override string Move() => "бегает";
+}
+class Eagle : Animal
+{
+    public int WingSpan{get; }
+    public Eagle(string name,int age, int wingSpan) : base(name,age)
+    {
+        WingSpan = wingSpan;
+    }
+    public override string Speak() => "ааа";
+    public override string Move() => "летит";
+}
+class Fish : Animal
+{
+    public Fish(string name,int age) : base(name,age)
+    {}
+    public override string Speak() => "молчит";
+    public override string Move() => "плывёт";
+}
+class Program
+{
+    static void Main()
+    {
+        Animal [] animals =
+        {
+            new Lion("Лу",10),
+            new Eagle("О",10,100),
+            new Fish("Р",1)
+        };
+        foreach(Animal a in animals)
+        {
+            a.Print();
+            {
+                if(a is Eagle e)
+                {
+                    Console.WriteLine($"Размах крыльев {e.WingSpan}");
+                }
+            }
+        }
+    }
+}
